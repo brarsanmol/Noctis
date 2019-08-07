@@ -1,0 +1,6 @@
+name: Noctis
+version: ${project.version}
+main: com.gmail.ceezuns.noctis.Noctis
+api-version: 1.13
+authors: [ceezuns]
+website: ceezuns.cf
