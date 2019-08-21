@@ -19,7 +19,6 @@ public class ConfigurationFile {
 
 		if (!this.file.exists()) {
 			this.file.getParentFile().mkdirs();
-			instance.saveResource(name + ".yml", false);
 		}
 
 		this.configuration = new YamlConfiguration();
@@ -28,6 +27,8 @@ public class ConfigurationFile {
 		} catch (IOException | InvalidConfigurationException exception) {
 			exception.printStackTrace();
 		}
+
+		this.save();
 	}
 
 	public void save() {
