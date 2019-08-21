@@ -2,6 +2,7 @@ package com.gmail.ceezuns.noctis;
 
 import com.gmail.ceezuns.noctis.users.UserListener;
 import com.gmail.ceezuns.noctis.users.UserManager;
+import com.gmail.ceezuns.noctis.users.markers.MarkersCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Noctis extends JavaPlugin {
@@ -14,6 +15,7 @@ public final class Noctis extends JavaPlugin {
 		instance = this;
 		this.userManager = new UserManager();
 		new UserListener();
+		new MarkersCommand();
 	}
 
 	@Override
