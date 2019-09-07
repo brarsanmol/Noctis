@@ -2,6 +2,8 @@ package com.gmail.ceezuns.noctis;
 
 import com.gmail.ceezuns.noctis.users.UserListener;
 import com.gmail.ceezuns.noctis.users.UserManager;
+import com.gmail.ceezuns.noctis.users.cobble.CobbleCommand;
+import com.gmail.ceezuns.noctis.users.cobble.CobbleListener;
 import com.gmail.ceezuns.noctis.users.markers.MarkersCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,7 +17,9 @@ public final class Noctis extends JavaPlugin {
 		instance = this;
 		this.userManager = new UserManager();
 		new UserListener();
+		new CobbleListener();
 		new MarkersCommand();
+		new CobbleCommand();
 	}
 
 	@Override

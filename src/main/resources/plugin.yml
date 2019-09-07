@@ -8,3 +8,5 @@ website: ceezuns.cf
 commands:
   markers:
     description: Markers Command
+  cobble:
+    description: Cobble Command
