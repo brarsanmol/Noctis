@@ -45,7 +45,9 @@ public class MarkersCommand implements CommandExecutor {
 						}
 						break;
 					case "add":
-						if (user.getMarkerManager().getMarker(arguments[1]) == null) {
+						if (arguments[1] == null) {
+							sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/markers add <name>");
+						} else if (user.getMarkerManager().getMarker(arguments[1]) == null) {
 							user.getMarkerManager().addMarker(new Marker(arguments[1], user.getPlayer().getLocation()));
 							sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "The marker " + ChatColor.GOLD + arguments[1] + ChatColor.GRAY + " has been added");
 						} else {
@@ -53,7 +55,9 @@ public class MarkersCommand implements CommandExecutor {
 						}
 						break;
 					case "remove":
-						if (user.getMarkerManager().getMarker(arguments[1]) != null) {
+						if (arguments[1] == null) {
+							sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/markers remove <name>");
+						} else if (user.getMarkerManager().getMarker(arguments[1]) != null) {
 							user.getMarkerManager().removeMarker(user.getMarkerManager().getMarker(arguments[1]));
 							sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "The marker " + ChatColor.GOLD + arguments[1] + ChatColor.GRAY + " has been removed");
 						} else {
@@ -61,7 +65,9 @@ public class MarkersCommand implements CommandExecutor {
 						}
 						break;
 					case "update":
-						if (user.getMarkerManager().getMarker(arguments[1]) != null) {
+						if (arguments[1] == null) {
+							sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/markers update <name>");
+						} else if (user.getMarkerManager().getMarker(arguments[1]) != null) {
 							user.getMarkerManager().getMarker(arguments[1]).setLocation(user.getPlayer().getLocation());
 							sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "The marker " + ChatColor.GOLD + arguments[1] + ChatColor.GRAY + " has been updated");
 						} else {
