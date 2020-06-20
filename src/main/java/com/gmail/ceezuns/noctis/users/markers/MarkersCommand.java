@@ -40,7 +40,7 @@ public class MarkersCommand implements CommandExecutor {
 							sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You currently have no markers");
 						} else {
 							sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Markers " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-							user.getMarkerManager().getMarkers().forEach(marker -> user.getPlayer().sendMessage(ChatColor.GOLD + marker.getName() + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + marker.getLocation().getX() + ", " + marker.getLocation().getY() + ", " + marker.getLocation().getZ()));
+							user.getMarkerManager().getMarkers().forEach(marker -> user.getPlayer().sendMessage(ChatColor.GOLD + marker.getName() + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + marker.getLocation().getWorld().getName() + ", " + marker.getLocation().getX() + ", " + marker.getLocation().getY() + ", " + marker.getLocation().getZ()));
 							sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Markers " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
 						}
 						break;
