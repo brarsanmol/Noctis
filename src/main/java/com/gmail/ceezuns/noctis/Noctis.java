@@ -4,6 +4,8 @@ import com.gmail.ceezuns.noctis.users.UserListener;
 import com.gmail.ceezuns.noctis.users.UserManager;
 import com.gmail.ceezuns.noctis.users.cobble.CobbleCommand;
 import com.gmail.ceezuns.noctis.users.cobble.CobbleListener;
+import com.gmail.ceezuns.noctis.users.graves.GravesCommand;
+import com.gmail.ceezuns.noctis.users.graves.GravesListener;
 import com.gmail.ceezuns.noctis.users.markers.MarkersCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,8 +20,10 @@ public final class Noctis extends JavaPlugin {
 		this.userManager = new UserManager();
 		new UserListener();
 		new CobbleListener();
+		new GravesListener();
 		new MarkersCommand();
 		new CobbleCommand();
+		new GravesCommand();
 	}
 
 	@Override

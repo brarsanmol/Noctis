@@ -10,3 +10,5 @@ commands:
     description: Markers Command
   cobble:
     description: Cobble Command
+  graves:
+    description: Graves Command
