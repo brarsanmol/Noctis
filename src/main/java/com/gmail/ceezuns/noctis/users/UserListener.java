@@ -1,6 +1,7 @@
 package com.gmail.ceezuns.noctis.users;
 
 import com.gmail.ceezuns.noctis.Noctis;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -19,6 +20,13 @@ public class UserListener implements Listener {
 		User user = new User(event.getPlayer());
 		user.load();
 		instance.getUserManager().addUser(user);
+
+		if (user.getPinManager().getPin() == null) {
+			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Welcome, please use the " + ChatColor.GOLD + "/pin create <string>" + ChatColor.GRAY + " command to create a pin and secure your account!");
+			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "DO NOT USE ANYTHING THAT YOU WOULD USE FOR YOUR OTHER ACCOUNT!");
+		} else {
+			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Please authenticate with the " + ChatColor.GOLD + "/pin authenticate <string> " + ChatColor.GRAY + " command");
+		}
 	}
 
 	@EventHandler

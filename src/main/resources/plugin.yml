@@ -12,3 +12,5 @@ commands:
     description: Cobble Command
   graves:
     description: Graves Command
+  pin:
+    description: Pin Command
