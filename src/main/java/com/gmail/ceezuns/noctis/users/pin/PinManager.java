@@ -1,14 +1,6 @@
 package com.gmail.ceezuns.noctis.users.pin;
 
-import com.gmail.ceezuns.noctis.Noctis;
-import com.gmail.ceezuns.noctis.users.markers.Marker;
 import com.gmail.ceezuns.noctis.utilities.ConfigurationFile;
-import org.bukkit.Location;
-import org.bukkit.configuration.ConfigurationSection;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public class PinManager {
 

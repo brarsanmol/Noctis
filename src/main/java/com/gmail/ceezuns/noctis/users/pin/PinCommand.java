@@ -2,7 +2,6 @@ package com.gmail.ceezuns.noctis.users.pin;
 
 import com.gmail.ceezuns.noctis.Noctis;
 import com.gmail.ceezuns.noctis.users.User;
-import com.gmail.ceezuns.noctis.users.markers.Marker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,7 +33,9 @@ public class PinCommand implements CommandExecutor {
             } else {
                 switch (arguments[0].toLowerCase()) {
                     case "authenticate":
-                        if (arguments[1] == null) {
+                        if (user.getPinManager().isAuthenticated()) {
+                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You are already authenticated");
+                        } else if (arguments[1] == null) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin authenticate <string>");
                         } else if (user.getPinManager().getPin().equals(arguments[1])) {
                             user.getPinManager().setAuthenticated(true);
@@ -44,7 +45,9 @@ public class PinCommand implements CommandExecutor {
                         }
                         break;
                     case "create":
-                        if (arguments[1] == null) {
+                        if (user.getPinManager().isAuthenticated()) {
+                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You are already authenticated");
+                        } else if (arguments[1] == null) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin create <string>");
                         } else if (user.getPinManager().getPin() == null) {
                             user.getPinManager().setPin(arguments[1]);

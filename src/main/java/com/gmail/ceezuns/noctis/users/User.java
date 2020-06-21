@@ -3,6 +3,7 @@ package com.gmail.ceezuns.noctis.users;
 import com.gmail.ceezuns.noctis.users.cobble.CobbleManager;
 import com.gmail.ceezuns.noctis.users.graves.GravesManager;
 import com.gmail.ceezuns.noctis.users.markers.MarkerManager;
+import com.gmail.ceezuns.noctis.users.ores.OresManager;
 import com.gmail.ceezuns.noctis.users.pin.PinManager;
 import com.gmail.ceezuns.noctis.utilities.ConfigurationFile;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ public class User {
 	private CobbleManager cobbleManager;
 	private GravesManager gravesManager;
 	private PinManager pinManager;
+	private OresManager oresManager;
 
 	public User(Player player) {
 		this.player = player;
@@ -23,6 +25,7 @@ public class User {
 		this.cobbleManager = new CobbleManager(this.configurationFile);
 		this.gravesManager = new GravesManager(this.configurationFile);
 		this.pinManager = new PinManager(this.configurationFile);
+		this.oresManager = new OresManager(this.configurationFile);
 	}
 
 	public void load() {
@@ -30,6 +33,7 @@ public class User {
 		this.cobbleManager.load();
 		this.gravesManager.load();
 		this.pinManager.load();
+		this.oresManager.load();
 	}
 
 	public void save() {
@@ -37,6 +41,7 @@ public class User {
 		this.cobbleManager.save();
 		this.gravesManager.save();
 		this.pinManager.save();
+		this.oresManager.save();
 	}
 
 	public Player getPlayer() {
@@ -57,5 +62,9 @@ public class User {
 
 	public PinManager getPinManager() {
 		return this.pinManager;
+	}
+
+	public OresManager getOresManager() {
+		return this.oresManager;
 	}
 }

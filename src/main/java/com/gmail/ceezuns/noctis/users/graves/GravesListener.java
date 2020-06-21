@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class GravesListener implements Listener {
 

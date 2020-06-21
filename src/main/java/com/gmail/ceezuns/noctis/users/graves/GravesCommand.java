@@ -2,8 +2,6 @@ package com.gmail.ceezuns.noctis.users.graves;
 
 import com.gmail.ceezuns.noctis.Noctis;
 import com.gmail.ceezuns.noctis.users.User;
-import com.gmail.ceezuns.noctis.users.cobble.CobbleStatus;
-import com.gmail.ceezuns.noctis.users.markers.Marker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

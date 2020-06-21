@@ -11,9 +11,7 @@ import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 
 public class PinListener implements Listener {
 
@@ -23,14 +21,14 @@ public class PinListener implements Listener {
 
     @EventHandler
     public void onEntityDamageEvent(EntityDamageEvent event) {
-        if (event.getEntity() instanceof Player && Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated()) {
+        if (event.getEntity() instanceof Player && (Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onFoodLevelChangeEvent(FoodLevelChangeEvent event) {
-        if (event.getEntity() instanceof Player && Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated()) {
+        if (event.getEntity() instanceof Player && (Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated())) {
             event.setCancelled(true);
         }
     }
@@ -44,14 +42,14 @@ public class PinListener implements Listener {
 
     @EventHandler
     public void onEntityPickupItemEvent(EntityPickupItemEvent event) {
-        if (event.getEntity() instanceof Player && Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated()) {
+        if (event.getEntity() instanceof Player && (Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onEntityDropItemEvent(EntityDropItemEvent event) {
-        if (event.getEntity() instanceof Player && Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated()) {
+        if (event.getEntity() instanceof Player && (Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().getPin() == null || !Noctis.getInstance().getUserManager().getUser((Player) event.getEntity()).getPinManager().isAuthenticated())) {
             event.setCancelled(true);
         }
     }

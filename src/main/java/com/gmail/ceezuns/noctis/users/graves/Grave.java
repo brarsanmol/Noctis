@@ -1,10 +1,6 @@
 package com.gmail.ceezuns.noctis.users.graves;
 
 import org.bukkit.Location;
-import org.bukkit.event.entity.EntityDamageEvent;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Grave {
 

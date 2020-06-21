@@ -4,9 +4,7 @@ import com.gmail.ceezuns.noctis.Noctis;
 import com.gmail.ceezuns.noctis.utilities.ConfigurationFile;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.event.entity.EntityDamageEvent;
 
-import java.util.Date;
 import java.util.HashSet;
 
 public class GravesManager {
