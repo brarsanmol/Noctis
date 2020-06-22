@@ -58,7 +58,9 @@ public class PinCommand implements CommandExecutor {
                         }
                         break;
                     case "update":
-                        if (arguments[1] == null) {
+                        if (!user.getPinManager().isAuthenticated()) {
+                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You must be authenticated to update your pin");
+                        } else if (arguments[1] == null) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin update <string>");
                         } else {
                             user.getPinManager().setPin(arguments[1]);

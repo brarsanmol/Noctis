@@ -13,9 +13,14 @@ public class OresListener implements Listener {
 
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event) {
-        if (OreType.valueOf(event.getBlock().getType().name()) != null) {
-            event.getPlayer().sendMessage(event.getBlock().getType().name());
-            Noctis.getInstance().getUserManager().getUser(event.getPlayer()).getOresManager().incrementOreMined(OreType.valueOf(event.getBlock().getType().name()));
+        // We catch the exception, because the valueOf method throws an exception when a enum does not have that value, and there no is no way to go around it without creating a separate map.
+        try {
+            if (OreType.valueOf(event.getBlock().getType().name()) != null) {
+                Noctis.getInstance().getUserManager().getUser(event.getPlayer()).getOresManager().incrementOreMined(OreType.valueOf(event.getBlock().getType().name()));
+            }
+        } catch (IllegalArgumentException exception) {
+            // Do nothing, as we don't want to throw the exception.
+            return;
         }
     }
 

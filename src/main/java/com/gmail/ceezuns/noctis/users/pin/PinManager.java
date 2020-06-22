@@ -14,7 +14,7 @@ public class PinManager {
     }
 
     public void load() {
-        this.pin = this.configurationFile.getConfiguration().getString("pin");
+        this.pin = this.configurationFile.getConfiguration().getString("pin")  == null ? null : this.configurationFile.getConfiguration().getString("pin");
     }
 
     public void save() {
