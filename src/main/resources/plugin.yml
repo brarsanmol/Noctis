@@ -16,3 +16,6 @@ commands:
     description: Pin Command
   ores:
     description: Ores Command
+  protection:
+    description: Protection Command
+    permission: protection.command
