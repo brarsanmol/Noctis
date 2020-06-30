@@ -31,22 +31,18 @@ public class MarkerManager {
 	}
 
 	public void save() {
-		ConfigurationSection section = this.configurationFile.getConfiguration().getConfigurationSection("markers");
-		if (section == null) {
-			return;
-		} else {
-			this.markers.forEach(marker -> {
-				section.set(marker.getName() + ".world", marker.getLocation().getWorld().getName());
-				section.set(marker.getName() + ".x", marker.getLocation().getBlockX());
-				section.set(marker.getName() + ".y", marker.getLocation().getBlockY());
-				section.set(marker.getName() + ".z", marker.getLocation().getBlockZ());
-			});
-			section.getKeys(false).forEach(marker -> {
-				if (this.getMarker(marker) == null) {
-					section.set(marker, null);
-				}
-			});
-		}
+		ConfigurationSection section = this.configurationFile.getConfiguration().createSection("markers");
+		this.markers.forEach(marker -> {
+			section.set(marker.getName() + ".world", marker.getLocation().getWorld().getName());
+			section.set(marker.getName() + ".x", marker.getLocation().getBlockX());
+			section.set(marker.getName() + ".y", marker.getLocation().getBlockY());
+			section.set(marker.getName() + ".z", marker.getLocation().getBlockZ());
+		});
+		section.getKeys(false).forEach(marker -> {
+			if (this.getMarker(marker) == null) {
+				section.set(marker, null);
+			}
+		});
 
 		this.configurationFile.save();
 		this.clearMarkers();

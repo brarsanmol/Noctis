@@ -29,23 +29,19 @@ public class GravesManager {
     }
 
     public void save() {
-        ConfigurationSection section = this.configurationFile.getConfiguration().getConfigurationSection("graves");
-        if (section == null) {
-            return;
-        } else {
-            this.graves.forEach(grave -> {
-                section.set(grave.getTimestamp() + ".death-cause", grave.getDeathCause());
-                section.set(grave.getTimestamp() + ".world", grave.getLocation().getWorld().getName());
-                section.set(grave.getTimestamp() + ".x", grave.getLocation().getBlockX());
-                section.set(grave.getTimestamp() + ".y", grave.getLocation().getBlockY());
-                section.set(grave.getTimestamp() + ".z", grave.getLocation().getBlockZ());
-            });
-            section.getKeys(false).forEach(grave -> {
-                if (this.getGrave(grave) == null) {
-                    section.set(grave, null);
-                }
-            });
-        }
+        ConfigurationSection section = this.configurationFile.getConfiguration().createSection("graves");
+        this.graves.forEach(grave -> {
+            section.set(grave.getTimestamp() + ".death-cause", grave.getDeathCause());
+            section.set(grave.getTimestamp() + ".world", grave.getLocation().getWorld().getName());
+            section.set(grave.getTimestamp() + ".x", grave.getLocation().getBlockX());
+            section.set(grave.getTimestamp() + ".y", grave.getLocation().getBlockY());
+            section.set(grave.getTimestamp() + ".z", grave.getLocation().getBlockZ());
+        });
+        section.getKeys(false).forEach(grave -> {
+            if (this.getGrave(grave) == null) {
+                section.set(grave, null);
+            }
+        });
 
         this.configurationFile.save();
         this.clearGraves();
