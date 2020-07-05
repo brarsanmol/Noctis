@@ -37,11 +37,6 @@ public class GravesManager {
             section.set(grave.getTimestamp() + ".y", grave.getLocation().getBlockY());
             section.set(grave.getTimestamp() + ".z", grave.getLocation().getBlockZ());
         });
-        section.getKeys(false).forEach(grave -> {
-            if (this.getGrave(grave) == null) {
-                section.set(grave, null);
-            }
-        });
 
         this.configurationFile.save();
         this.clearGraves();

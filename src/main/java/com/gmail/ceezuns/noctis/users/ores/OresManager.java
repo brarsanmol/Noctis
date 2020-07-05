@@ -27,7 +27,7 @@ public class OresManager {
     }
 
     public void save() {
-        ConfigurationSection section = this.configurationFile.getConfiguration().getConfigurationSection("ore");
+        ConfigurationSection section = this.configurationFile.getConfiguration().getConfigurationSection("ores");
         if (section == null) {
             return;
         } else {
