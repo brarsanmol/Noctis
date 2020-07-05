@@ -1,5 +1,7 @@
 package com.gmail.ceezuns.noctis;
 
+import com.gmail.ceezuns.noctis.listeners.EndListener;
+import com.gmail.ceezuns.noctis.listeners.RepairItemListener;
 import com.gmail.ceezuns.noctis.protection.ProtectionCommand;
 import com.gmail.ceezuns.noctis.protection.ProtectionListener;
 import com.gmail.ceezuns.noctis.protection.ProtectionManager;
@@ -41,6 +43,8 @@ public final class Noctis extends JavaPlugin {
 		new PinCommand();
 		new OresCommand();
 		new ProtectionCommand();
+		new RepairItemListener();
+		new EndListener();
 	}
 
 	@Override
