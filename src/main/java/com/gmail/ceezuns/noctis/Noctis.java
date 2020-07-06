@@ -1,5 +1,6 @@
 package com.gmail.ceezuns.noctis;
 
+import com.gmail.ceezuns.noctis.listeners.ChatListener;
 import com.gmail.ceezuns.noctis.listeners.EndListener;
 import com.gmail.ceezuns.noctis.listeners.RepairItemListener;
 import com.gmail.ceezuns.noctis.protection.ProtectionCommand;
@@ -12,6 +13,7 @@ import com.gmail.ceezuns.noctis.users.cobble.CobbleListener;
 import com.gmail.ceezuns.noctis.users.graves.GravesCommand;
 import com.gmail.ceezuns.noctis.users.graves.GravesListener;
 import com.gmail.ceezuns.noctis.users.markers.MarkersCommand;
+import com.gmail.ceezuns.noctis.users.nicknames.NicknameCommand;
 import com.gmail.ceezuns.noctis.users.ores.OresCommand;
 import com.gmail.ceezuns.noctis.users.ores.OresListener;
 import com.gmail.ceezuns.noctis.users.pin.PinCommand;
@@ -45,6 +47,8 @@ public final class Noctis extends JavaPlugin {
 		new ProtectionCommand();
 		new RepairItemListener();
 		new EndListener();
+		new ChatListener();
+		new NicknameCommand();
 	}
 
 	@Override

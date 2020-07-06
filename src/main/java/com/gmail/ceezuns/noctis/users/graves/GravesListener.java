@@ -17,7 +17,7 @@ public class GravesListener implements Listener {
     @EventHandler
     public void onPlayerDeathEvent(PlayerDeathEvent event) {
         User user = Noctis.getInstance().getUserManager().getUser(event.getEntity());
-        user.getGravesManager().addGrave(new Grave(LocalDateTime.now().toString(),
+        user.getGravesManager().addGrave(new Grave(LocalDateTime.now().withNano(0).toString(),
                 event.getEntity().getLastDamageCause().getCause().toString(),
                 user.getPlayer().getLocation()));
     }

@@ -19,3 +19,5 @@ commands:
   protection:
     description: Protection Command
     permission: protection.command
+  nickname:
+    description: Nickname Command

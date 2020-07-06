@@ -3,6 +3,7 @@ package com.gmail.ceezuns.noctis.users;
 import com.gmail.ceezuns.noctis.users.cobble.CobbleManager;
 import com.gmail.ceezuns.noctis.users.graves.GravesManager;
 import com.gmail.ceezuns.noctis.users.markers.MarkerManager;
+import com.gmail.ceezuns.noctis.users.nicknames.NicknameManager;
 import com.gmail.ceezuns.noctis.users.ores.OresManager;
 import com.gmail.ceezuns.noctis.users.pin.PinManager;
 import com.gmail.ceezuns.noctis.utilities.ConfigurationFile;
@@ -17,6 +18,7 @@ public class User {
 	private GravesManager gravesManager;
 	private PinManager pinManager;
 	private OresManager oresManager;
+	private NicknameManager nicknameManager;
 
 	public User(Player player) {
 		this.player = player;
@@ -26,6 +28,7 @@ public class User {
 		this.gravesManager = new GravesManager(this.configurationFile);
 		this.pinManager = new PinManager(this.configurationFile);
 		this.oresManager = new OresManager(this.configurationFile);
+		this.nicknameManager = new NicknameManager(this.configurationFile);
 	}
 
 	public void load() {
@@ -34,6 +37,7 @@ public class User {
 		this.gravesManager.load();
 		this.pinManager.load();
 		this.oresManager.load();
+		this.nicknameManager.load();
 	}
 
 	public void save() {
@@ -42,6 +46,7 @@ public class User {
 		this.gravesManager.save();
 		this.pinManager.save();
 		this.oresManager.save();
+		this.nicknameManager.save();
 	}
 
 	public Player getPlayer() {
@@ -66,5 +71,9 @@ public class User {
 
 	public OresManager getOresManager() {
 		return this.oresManager;
+	}
+
+	public NicknameManager getNicknameManager() {
+		return this.nicknameManager;
 	}
 }

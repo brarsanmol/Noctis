@@ -21,6 +21,12 @@ public class UserListener implements Listener {
 		user.load();
 		instance.getUserManager().addUser(user);
 
+		if (user.getNicknameManager().getNickname() == null) {
+			user.getNicknameManager().setNickname(event.getPlayer().getName());
+		} else {
+			event.getPlayer().setDisplayName(user.getNicknameManager().getNickname());
+		}
+
 		if (user.getPinManager().getPin() == null) {
 			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Welcome, please use the " + ChatColor.GOLD + "/pin create <string>" + ChatColor.GRAY + " command to create a pin and secure your account!");
 			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "DO NOT USE ANYTHING THAT YOU WOULD USE FOR YOUR OTHER ACCOUNT!");
