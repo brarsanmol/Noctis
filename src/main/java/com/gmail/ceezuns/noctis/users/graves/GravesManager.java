@@ -23,7 +23,6 @@ public class GravesManager {
             return;
         } else {
             section.getKeys(false).forEach(grave -> {
-                System.out.println(grave);
                 this.graves.add(new Grave(grave, section.getString(grave + ".death-cause"), new Location(Noctis.getInstance().getServer().getWorld(section.getString(grave + ".world")), section.getInt(grave + ".x"), section.getInt(grave + ".y"), section.getInt(grave + ".z"))));
             });
         }
@@ -32,7 +31,6 @@ public class GravesManager {
     public void save() {
         ConfigurationSection section = this.configurationFile.getConfiguration().createSection("graves");
         this.graves.forEach(grave -> {
-            System.out.println(grave.getTimestamp());
             section.set(grave.getTimestamp() + ".death-cause", grave.getDeathCause());
             section.set(grave.getTimestamp() + ".world", grave.getLocation().getWorld().getName());
             section.set(grave.getTimestamp() + ".x", grave.getLocation().getBlockX());

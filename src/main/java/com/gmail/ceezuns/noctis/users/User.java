@@ -1,5 +1,6 @@
 package com.gmail.ceezuns.noctis.users;
 
+import com.gmail.ceezuns.noctis.sets.SetsManager;
 import com.gmail.ceezuns.noctis.users.cobble.CobbleManager;
 import com.gmail.ceezuns.noctis.users.graves.GravesManager;
 import com.gmail.ceezuns.noctis.users.markers.MarkerManager;
@@ -19,6 +20,7 @@ public class User {
 	private PinManager pinManager;
 	private OresManager oresManager;
 	private NicknameManager nicknameManager;
+	private SetsManager setsManager;
 
 	public User(Player player) {
 		this.player = player;
@@ -29,6 +31,7 @@ public class User {
 		this.pinManager = new PinManager(this.configurationFile);
 		this.oresManager = new OresManager(this.configurationFile);
 		this.nicknameManager = new NicknameManager(this.configurationFile);
+		this.setsManager = new SetsManager(this.configurationFile);
 	}
 
 	public void load() {
@@ -38,6 +41,7 @@ public class User {
 		this.pinManager.load();
 		this.oresManager.load();
 		this.nicknameManager.load();
+		this.setsManager.load();
 	}
 
 	public void save() {
@@ -47,6 +51,7 @@ public class User {
 		this.pinManager.save();
 		this.oresManager.save();
 		this.nicknameManager.save();
+		this.setsManager.save();
 	}
 
 	public Player getPlayer() {
@@ -75,5 +80,9 @@ public class User {
 
 	public NicknameManager getNicknameManager() {
 		return this.nicknameManager;
+	}
+
+	public SetsManager getSetsManager() {
+		return setsManager;
 	}
 }

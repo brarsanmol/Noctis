@@ -21,3 +21,5 @@ commands:
     permission: protection.command
   nickname:
     description: Nickname Command
+  sets:
+    description: Sets Command

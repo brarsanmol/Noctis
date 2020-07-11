@@ -35,7 +35,7 @@ public class PinCommand implements CommandExecutor {
                     case "authenticate":
                         if (user.getPinManager().isAuthenticated()) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You are already authenticated");
-                        } else if (arguments[1] == null) {
+                        } else if (arguments.length < 2) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin authenticate <string>");
                         } else if (user.getPinManager().getPin().equals(arguments[1])) {
                             user.getPinManager().setAuthenticated(true);
@@ -47,7 +47,7 @@ public class PinCommand implements CommandExecutor {
                     case "create":
                         if (user.getPinManager().isAuthenticated()) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You are already authenticated");
-                        } else if (arguments[1] == null) {
+                        } else if (arguments.length < 2) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin create <string>");
                         } else if (user.getPinManager().getPin() == null) {
                             user.getPinManager().setPin(arguments[1]);
@@ -60,7 +60,7 @@ public class PinCommand implements CommandExecutor {
                     case "update":
                         if (!user.getPinManager().isAuthenticated()) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You must be authenticated to update your pin");
-                        } else if (arguments[1] == null) {
+                        } else if (arguments.length < 2) {
                             sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin update <string>");
                         } else {
                             user.getPinManager().setPin(arguments[1]);

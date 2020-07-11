@@ -3,9 +3,12 @@ package com.gmail.ceezuns.noctis;
 import com.gmail.ceezuns.noctis.listeners.ChatListener;
 import com.gmail.ceezuns.noctis.listeners.EndListener;
 import com.gmail.ceezuns.noctis.listeners.RepairItemListener;
+import com.gmail.ceezuns.noctis.mechanics.FireworkRecipe;
 import com.gmail.ceezuns.noctis.protection.ProtectionCommand;
 import com.gmail.ceezuns.noctis.protection.ProtectionListener;
 import com.gmail.ceezuns.noctis.protection.ProtectionManager;
+import com.gmail.ceezuns.noctis.sets.SetsCommand;
+import com.gmail.ceezuns.noctis.sets.SetsListener;
 import com.gmail.ceezuns.noctis.users.UserListener;
 import com.gmail.ceezuns.noctis.users.UserManager;
 import com.gmail.ceezuns.noctis.users.cobble.CobbleCommand;
@@ -19,6 +22,7 @@ import com.gmail.ceezuns.noctis.users.ores.OresListener;
 import com.gmail.ceezuns.noctis.users.pin.PinCommand;
 import com.gmail.ceezuns.noctis.users.pin.PinListener;
 import com.gmail.ceezuns.noctis.utilities.ConfigurationFile;
+import com.inkzz.spigot.armorevent.ArmorListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Noctis extends JavaPlugin {
@@ -49,6 +53,10 @@ public final class Noctis extends JavaPlugin {
 		new EndListener();
 		new ChatListener();
 		new NicknameCommand();
+		new FireworkRecipe();
+		new ArmorListener();
+		new SetsCommand();
+		new SetsListener();
 	}
 
 	@Override
