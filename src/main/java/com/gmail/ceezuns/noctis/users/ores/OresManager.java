@@ -27,12 +27,9 @@ public class OresManager {
     }
 
     public void save() {
-        ConfigurationSection section = this.configurationFile.getConfiguration().getConfigurationSection("ores");
-        if (section == null) {
-            return;
-        } else {
-            this.ores.forEach((ore, value) -> section.set(ore.name(), value));
-        }
+        ConfigurationSection section = this.configurationFile.getConfiguration().createSection("ores");
+
+        this.ores.forEach((ore, value) -> section.set(ore.name(), value == null ? 0 : value));
 
         this.configurationFile.save();
         this.clearOres();

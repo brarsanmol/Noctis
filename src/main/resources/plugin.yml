@@ -23,3 +23,5 @@ commands:
     description: Nickname Command
   sets:
     description: Sets Command
+  coords:
+    description: Coords Command

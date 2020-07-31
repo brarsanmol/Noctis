@@ -25,13 +25,15 @@ public class SetsCommand implements CommandExecutor {
 
             User user = Noctis.getInstance().getUserManager().getUser((Player) sender);
             if (arguments.length == 0) {
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Sets " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-                sender.sendMessage(ChatColor.GOLD + "/sets list" + ChatColor.GRAY + " - List all sets");
-                sender.sendMessage(ChatColor.GOLD + "/sets unlock <name>" + ChatColor.GRAY + " - Unlock a set");
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Sets " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-                return true;
+                Noctis.getInstance().getHera().getInventoryManager().getInventory("sets").show(user.getPlayer());
             } else {
                 switch (arguments[0].toLowerCase()) {
+                    case "help":
+                        sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Sets " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
+                        sender.sendMessage(ChatColor.GOLD + "/sets list" + ChatColor.GRAY + " - List all sets");
+                        sender.sendMessage(ChatColor.GOLD + "/sets unlock <name>" + ChatColor.GRAY + " - Unlock a set");
+                        sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Sets " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
+                        break;
                     case "list":
                         sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Sets " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
                         for (SetType set : SetType.values()) {
@@ -56,7 +58,7 @@ public class SetsCommand implements CommandExecutor {
                             sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "To unlock this set you must have " + ChatColor.GOLD + SetType.valueOf(arguments[1].toUpperCase()).getCost() + ChatColor.GRAY + " diamonds");
                         } else {
                             sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You have unlocked the " + ChatColor.GOLD + SetType.valueOf(arguments[1].toUpperCase()).getFriendlyName() + ChatColor.GRAY + " set");
-                            user.getPlayer().getInventory().getItemInMainHand().setAmount(user.getPlayer().getInventory().getItemInMainHand().getAmount() - 32);
+                            user.getPlayer().getInventory().getItemInMainHand().setAmount(user.getPlayer().getInventory().getItemInMainHand().getAmount() - SetType.valueOf(arguments[1].toUpperCase()).getCost());
                             user.getSetsManager().addSet(SetType.valueOf(arguments[1].toUpperCase()));
                         }
                         break;

@@ -2,6 +2,7 @@ package com.gmail.ceezuns.noctis.users.graves;
 
 import com.gmail.ceezuns.noctis.Noctis;
 import com.gmail.ceezuns.noctis.users.User;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -17,9 +18,18 @@ public class GravesListener implements Listener {
     @EventHandler
     public void onPlayerDeathEvent(PlayerDeathEvent event) {
         User user = Noctis.getInstance().getUserManager().getUser(event.getEntity());
-        user.getGravesManager().addGrave(new Grave(LocalDateTime.now().withNano(0).toString(),
+
+        Grave grave = new Grave(LocalDateTime.now().withNano(0).toString(),
                 event.getEntity().getLastDamageCause().getCause().toString(),
-                user.getPlayer().getLocation()));
+                user.getPlayer().getLocation());
+        user.getGravesManager().addGrave(grave);
+
+        user.getPlayer().sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Graves " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
+        user.getPlayer().sendMessage(ChatColor.GOLD + "Timestamp" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getTimestamp());
+        user.getPlayer().sendMessage(ChatColor.GOLD + "Death Cause" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getDeathCause());
+        user.getPlayer().sendMessage(ChatColor.GOLD + "Location" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getLocation().getWorld().getName() + ", " + grave.getLocation().getX() + ", " + grave.getLocation().getY() + ", " + grave.getLocation().getZ());
+        user.getPlayer().sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Graves " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
+
     }
 
 }
