@@ -4,6 +4,7 @@ import ca.anmolbrar.commands.CoordsCommand;
 import ca.anmolbrar.listeners.ChatListener;
 import ca.anmolbrar.listeners.EndListener;
 import ca.anmolbrar.listeners.RepairItemListener;
+import ca.anmolbrar.listeners.SpawnerListener;
 import ca.anmolbrar.mechanics.FireworkRecipe;
 import ca.anmolbrar.protection.ProtectionCommand;
 import ca.anmolbrar.protection.ProtectionListener;
@@ -67,6 +68,7 @@ public final class Noctis extends JavaPlugin {
 		new SetsCommand();
 		new SetsListener();
 		new CoordsCommand();
+		new SpawnerListener();
 	}
 
 	@Override
