@@ -1,12 +1,11 @@
 package com.inkzz.spigot.armorevent;
 
-import com.gmail.ceezuns.noctis.Noctis;
+import ca.anmolbrar.Noctis;
 import com.google.common.collect.Maps;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
