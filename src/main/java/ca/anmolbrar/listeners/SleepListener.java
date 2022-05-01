@@ -1,6 +1,7 @@
 package ca.anmolbrar.listeners;
 
 import ca.anmolbrar.Noctis;
+import ca.anmolbrar.utilities.CommandSymbols;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,11 +16,10 @@ public class SleepListener implements Listener {
 
     @EventHandler
     public void onBedEnterEvent(PlayerBedEnterEvent event) {
-        Noctis.getInstance().getServer().broadcastMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + " > " + ChatColor.GOLD + event.getPlayer().getName() + " is now sleeping!");
+        event.getPlayer().getServer().broadcastMessage(CommandSymbols.SUCCESS + "" + ChatColor.GRAY + event.getPlayer().getName() + " is now sleeping!");
     }
 
     @EventHandler
-    public void onBedEnterEvent(PlayerBedLeaveEvent event) {
-        Noctis.getInstance().getServer().broadcastMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + " > " + ChatColor.GOLD + event.getPlayer().getName() + " is no longer sleep!");
-    }
+    public void onBedLeaveEvent(PlayerBedLeaveEvent event) {
+        event.getPlayer().getServer().broadcastMessage(CommandSymbols.DANGER + "" + ChatColor.GRAY + event.getPlayer().getName() + " is no longer sleeping!");    }
 }

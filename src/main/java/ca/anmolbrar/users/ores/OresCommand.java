@@ -2,32 +2,32 @@ package ca.anmolbrar.users.ores;
 
 import ca.anmolbrar.Noctis;
 import ca.anmolbrar.users.User;
+import ca.anmolbrar.utilities.CommandSymbols;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.Default;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class OresCommand implements CommandExecutor {
+@CommandAlias("ores")
+public class OresCommand extends BaseCommand {
 
     public OresCommand() {
-        Noctis.getInstance().getCommand("ores").setExecutor(this);
+        Noctis.getInstance().getCommandManager().registerCommand(this);
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] arguments) {
-        if (command.getName().equalsIgnoreCase("ores")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "You must be a player to perform this action");
-            }
-
-            User user = Noctis.getInstance().getUserManager().getUser((Player) sender);
-            sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Ores " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-            for (OreType ore : OreType.values()) {
-                sender.sendMessage(ChatColor.GOLD + ore.getFriendlyName() + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + user.getOresManager().getAmountMined(ore));
-            }
-            sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Ores " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
+    @Default
+    public static void onOres(Player player, User user) {
+        player.sendMessage(new String[] {
+                "",
+                ChatColor.LIGHT_PURPLE + " " + ChatColor.BOLD + "Ores",
+                "",
+        });
+        for (OreType ore : OreType.values()) {
+            player.sendMessage(" " + CommandSymbols.SPACER + ChatColor.WHITE + ore.getFriendlyName() + " "
+                    + ChatColor.DARK_GRAY + " - "
+                    + ChatColor.GRAY + user.getOresManager().getAmountMined(ore));
         }
-        return true;
+        player.sendMessage();
     }
 }

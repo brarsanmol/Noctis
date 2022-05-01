@@ -2,6 +2,7 @@ package ca.anmolbrar.users.graves;
 
 import ca.anmolbrar.Noctis;
 import ca.anmolbrar.users.User;
+import ca.anmolbrar.utilities.CommandSymbols;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,11 +25,11 @@ public class GravesListener implements Listener {
                 user.getPlayer().getLocation());
         user.getGravesManager().addGrave(grave);
 
-        user.getPlayer().sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Graves " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-        user.getPlayer().sendMessage(ChatColor.GOLD + "Timestamp" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getTimestamp());
-        user.getPlayer().sendMessage(ChatColor.GOLD + "Death Cause" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getDeathCause());
-        user.getPlayer().sendMessage(ChatColor.GOLD + "Location" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getLocation().getWorld().getName() + ", " + grave.getLocation().getX() + ", " + grave.getLocation().getY() + ", " + grave.getLocation().getZ());
-        user.getPlayer().sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Graves " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
+        user.getPlayer().sendMessage(CommandSymbols.DANGER + "" + ChatColor.WHITE + grave.getTimestamp()
+                + ChatColor.GRAY + "("
+                + ChatColor.LIGHT_PURPLE + grave.getLocation().getX() + ChatColor.GRAY + ", "
+                + ChatColor.LIGHT_PURPLE + grave.getLocation().getY() + ChatColor.GRAY + ", "
+                + ChatColor.LIGHT_PURPLE + grave.getLocation().getZ() + ChatColor.GRAY + ")");
 
     }
 

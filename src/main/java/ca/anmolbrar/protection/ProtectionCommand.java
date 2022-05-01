@@ -1,52 +1,47 @@
 package ca.anmolbrar.protection;
 
 import ca.anmolbrar.Noctis;
-import ca.anmolbrar.users.User;
+import ca.anmolbrar.utilities.CommandSymbols;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandPermission;
+import co.aikar.commands.annotation.HelpCommand;
+import co.aikar.commands.annotation.Subcommand;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-public class ProtectionCommand implements CommandExecutor {
+@CommandAlias("protection|pvp")
+@CommandPermission("noctis.commands.protection")
+public class ProtectionCommand extends BaseCommand {
 
     public ProtectionCommand() {
-        Noctis.getInstance().getCommand("protection").setExecutor(this);
+        Noctis.getInstance().getCommandManager().registerCommand(this);
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] arguments) {
-        if (command.getName().equalsIgnoreCase("protection")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "You must be a player to perform this action");
-            }
-
-            if (!sender.hasPermission("protection.command")) {
-                sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "You do not have permission to perform this action");
-                return false;
-            }
-
-            User user = Noctis.getInstance().getUserManager().getUser((Player) sender);
-            if (arguments.length == 0) {
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Protection " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-                sender.sendMessage(ChatColor.GOLD + "/protection on" + ChatColor.GRAY + " - Turn on protection");
-                sender.sendMessage(ChatColor.GOLD + "/protection off" + ChatColor.GRAY + " - Turn off protection");
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Protection " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-                return true;
-            } else {
-                switch (arguments[0].toLowerCase()) {
-                    case "on":
-                        Noctis.getInstance().getProtectionManager().setProtectionEnabled(true);
-                        Noctis.getInstance().getServer().broadcastMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Protection is now enabled, you will be immune from entity damage and hunger level changes.");
-                        break;
-                    case "off":
-                        Noctis.getInstance().getProtectionManager().setProtectionEnabled(false);
-                        Noctis.getInstance().getServer().broadcastMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Protection is now disabled, you will no longer be immune from entity damage and hunger level changes.");
-                        break;
-                }
-            }
-        }
-        return true;
+    @HelpCommand
+    public static void onHelp(CommandSender sender) {
+        sender.sendMessage(new String[] {
+                "",
+                ChatColor.LIGHT_PURPLE + " " + ChatColor.BOLD + "Protection Help",
+                "",
+                ChatColor.GRAY + " <> = Required Argument",
+                ChatColor.GRAY + " [] = Optional Argument",
+                "",
+                CommandSymbols.SPACER + "" + ChatColor.LIGHT_PURPLE + "/protection enable" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Turn on protection",
+                CommandSymbols.SPACER + "" + ChatColor.LIGHT_PURPLE + "/protection disable" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Turn off protection",
+                ""
+        });
     }
 
+    @Subcommand("enable|on")
+    public static void onEnable(CommandSender sender) {
+        Noctis.getInstance().getProtectionManager().setProtectionEnabled(true);
+        sender.getServer().broadcastMessage(CommandSymbols.SUCCESS + "" + ChatColor.GRAY + "Protection is now enabled, you will be immune from entity damage and hunger level changes.");
+    }
+
+    @Subcommand("disable|off")
+    public static void onDisable(CommandSender sender) {
+        Noctis.getInstance().getProtectionManager().setProtectionEnabled(false);
+        sender.getServer().broadcastMessage(CommandSymbols.DANGER + "" + ChatColor.GRAY + "Protection is now disabled, you will no longer be immune from entity damage and hunger level changes.");
+    }
 }

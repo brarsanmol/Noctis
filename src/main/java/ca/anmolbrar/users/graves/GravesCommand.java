@@ -2,41 +2,39 @@ package ca.anmolbrar.users.graves;
 
 import ca.anmolbrar.Noctis;
 import ca.anmolbrar.users.User;
+import ca.anmolbrar.utilities.CommandSymbols;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.Default;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class GravesCommand implements CommandExecutor {
+@CommandAlias("graves|g")
+public class GravesCommand extends BaseCommand {
 
     public GravesCommand() {
-        Noctis.getInstance().getCommand("graves").setExecutor(this);
+        Noctis.getInstance().getCommandManager().registerCommand(this);
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] arguments) {
-        if (command.getName().equalsIgnoreCase("graves")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "You must be a player to perform this action");
-            }
+    @Default
+    public static void onGraves(Player player, User user) {
+        var graves = user.getGravesManager().getGraves();
 
-            User user = Noctis.getInstance().getUserManager().getUser((Player) sender);
-            if (user.getGravesManager().getGraves().isEmpty()) {
-                sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You currently have no graves");
-            } else {
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Graves " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-                sender.sendMessage("");
-                for (Grave grave : user.getGravesManager().getGraves()) {
-                    sender.sendMessage(ChatColor.GOLD + "Timestamp" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getTimestamp());
-                    sender.sendMessage(ChatColor.GOLD + "Death Cause" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getDeathCause());
-                    sender.sendMessage(ChatColor.GOLD + "Location" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + grave.getLocation().getWorld().getName() + ", " + grave.getLocation().getX() + ", " + grave.getLocation().getY() + ", " + grave.getLocation().getZ());
-                    sender.sendMessage("");
-                }
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Graves " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-            }
+        if (graves.isEmpty()) {
+            player.sendMessage(CommandSymbols.SUCCESS + "" + ChatColor.GRAY + "You currently have no graves.");
+        } else {
+            player.sendMessage(new String[] {
+                    "",
+                    ChatColor.LIGHT_PURPLE + " " + ChatColor.BOLD + "Graves",
+                    "",
+            });
+            graves.forEach(grave -> player.sendMessage(" " + ChatColor.WHITE + grave.getTimestamp()
+                    + ChatColor.GRAY + "("
+                    + ChatColor.LIGHT_PURPLE + grave.getLocation().getX() + ChatColor.GRAY + ", "
+                    + ChatColor.LIGHT_PURPLE + grave.getLocation().getY() + ChatColor.GRAY + ", "
+                    + ChatColor.LIGHT_PURPLE + grave.getLocation().getZ() + ChatColor.GRAY + ")"));
+            player.sendMessage();
         }
-        return true;
     }
 
 }

@@ -20,6 +20,7 @@ public class OresListener implements Listener {
             }
         } catch (IllegalArgumentException exception) {
             // Do nothing, as we don't want to throw the exception.
+            exception.printStackTrace();
             return;
         }
     }

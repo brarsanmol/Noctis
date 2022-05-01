@@ -2,75 +2,70 @@ package ca.anmolbrar.users.pin;
 
 import ca.anmolbrar.Noctis;
 import ca.anmolbrar.users.User;
+import ca.anmolbrar.utilities.CommandSymbols;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.HelpCommand;
+import co.aikar.commands.annotation.Subcommand;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class PinCommand implements CommandExecutor {
+@CommandAlias("pin")
+public class PinCommand extends BaseCommand {
 
     public PinCommand() {
-        Noctis.getInstance().getCommand("pin").setExecutor(this);
+        Noctis.getInstance().getCommandManager().registerCommand(this);
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] arguments) {
-        if (command.getName().equalsIgnoreCase("pin")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "You must be a player to perform this action");
-            }
+    @HelpCommand
+    public static void onHelp(CommandSender sender) {
+        sender.sendMessage(new String[] {
+                "",
+                ChatColor.LIGHT_PURPLE + " " + ChatColor.BOLD + "Pin Help",
+                "",
+                ChatColor.GRAY + " <> = Required Argument",
+                ChatColor.GRAY + " [] = Optional Argument",
+                "",
+                CommandSymbols.SPACER + "" + ChatColor.LIGHT_PURPLE + "/pin authenticate <pin>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Authenticate with your pin",
+                CommandSymbols.SPACER + "" + ChatColor.LIGHT_PURPLE + "/pin create <pin>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Create your pin",
+                CommandSymbols.SPACER + "" + ChatColor.LIGHT_PURPLE + "/pin update <pin>" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Update your pin",
+                ""
+        });
+    }
 
-            User user = Noctis.getInstance().getUserManager().getUser((Player) sender);
-
-            if (arguments.length == 0) {
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Pin " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-                sender.sendMessage(ChatColor.GOLD + "/pin create <string>" + ChatColor.GRAY + " - Create a pin");
-                sender.sendMessage(ChatColor.GOLD + "/pin authenticate <string>" + ChatColor.GRAY + " - Authenticate with your pin");
-                sender.sendMessage(ChatColor.GOLD + "/pin update <string>" + ChatColor.GRAY + " - Update a pin");
-                sender.sendMessage(ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------" + ChatColor.GOLD + " Pin " + ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------");
-                return true;
-            } else {
-                switch (arguments[0].toLowerCase()) {
-                    case "authenticate":
-                        if (user.getPinManager().isAuthenticated()) {
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You are already authenticated");
-                        } else if (arguments.length < 2) {
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin authenticate <string>");
-                        } else if (user.getPinManager().getPin().equals(arguments[1])) {
-                            user.getPinManager().setAuthenticated(true);
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You have been authenticated");
-                        } else {
-                            sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "The pin you provided, is invalid, please try again");
-                        }
-                        break;
-                    case "create":
-                        if (user.getPinManager().isAuthenticated()) {
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You are already authenticated");
-                        } else if (arguments.length < 2) {
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin create <string>");
-                        } else if (user.getPinManager().getPin() == null) {
-                            user.getPinManager().setPin(arguments[1]);
-                            user.getPinManager().setAuthenticated(true);
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Your pin has been created");
-                        } else {
-                            sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You already have a pin, to update your pin use the command " + ChatColor.GOLD + "/pin update <string>");
-                        }
-                        break;
-                    case "update":
-                        if (!user.getPinManager().isAuthenticated()) {
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "You must be authenticated to update your pin");
-                        } else if (arguments.length < 2) {
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Usage: " + ChatColor.GOLD + "/pin update <string>");
-                        } else {
-                            user.getPinManager().setPin(arguments[1]);
-                            sender.sendMessage(ChatColor.GOLD + "Server" + ChatColor.DARK_GRAY + " > " + ChatColor.GRAY + "Your pin has been updated");
-                        }
-                        break;
-                }
-            }
+    @Subcommand("authenticate")
+    public static void onAuthenticate(Player player, User user, String pin) {
+        if (user.getPinManager().isAuthenticated()) {
+            player.sendMessage(CommandSymbols.DANGER + "" + ChatColor.GRAY + "You are already authenticated.");
+        } else if (user.getPinManager().getPin().equals(pin)) {
+            user.getPinManager().setAuthenticated(true);
+            player.sendMessage(CommandSymbols.SUCCESS + "" + ChatColor.GRAY + "You have been authenticated.");
+        } else {
+            player.sendMessage(CommandSymbols.DANGER + "" + ChatColor.GRAY + "The pin you provided, is invalid, please try again.");
         }
-        return true;
     }
 
+    @Subcommand("create")
+    public static void onCreate(Player player, User user, String pin) {
+        if (user.getPinManager().isAuthenticated()) {
+            player.sendMessage(CommandSymbols.DANGER + "" + ChatColor.GRAY + "You are already authenticated.");
+        } else if (user.getPinManager().getPin() == null) {
+            user.getPinManager().setPin(pin);
+            user.getPinManager().setAuthenticated(true);
+            player.sendMessage(CommandSymbols.SUCCESS + "" + ChatColor.GRAY + "Your pin has been created.");
+        } else {
+            player.sendMessage(CommandSymbols.DANGER + "" + ChatColor.GRAY + "You already have a pin, to update your pin use the command /pin update <string>.");
+        }
+    }
+
+    @Subcommand("update")
+    public static void onUpdate(Player player, User user, String pin) {
+        if (!user.getPinManager().isAuthenticated()) {
+            player.sendMessage(CommandSymbols.DANGER + "" + ChatColor.GRAY + "You must be authenticated to update your pin.");
+        } else {
+            user.getPinManager().setPin(pin);
+            player.sendMessage(CommandSymbols.SUCCESS + "" + ChatColor.GRAY + "Your pin has been updated.");
+        }
+    }
 }

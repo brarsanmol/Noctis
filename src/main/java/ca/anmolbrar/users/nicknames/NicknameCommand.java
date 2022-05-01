@@ -2,35 +2,24 @@ package ca.anmolbrar.users.nicknames;
 
 import ca.anmolbrar.Noctis;
 import ca.anmolbrar.users.User;
+import ca.anmolbrar.utilities.CommandSymbols;
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.Default;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class NicknameCommand implements CommandExecutor {
+@CommandAlias("nickname|nick")
+public class NicknameCommand extends BaseCommand {
 
     public NicknameCommand() {
-        Noctis.getInstance().getCommand("nickname").setExecutor(this);
+        Noctis.getInstance().getCommandManager().registerCommand(this);
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] arguments) {
-        if (command.getName().equalsIgnoreCase("nickname")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "You must be a player to perform this action");
-            }
-
-            User user = Noctis.getInstance().getUserManager().getUser((Player) sender);
-
-            if (arguments.length == 0) {
-                sender.sendMessage(ChatColor.GOLD + "/nickname <string>" + ChatColor.GRAY + "- Change your nickname");
-            } else {
-                user.getNicknameManager().setNickname(arguments[0]);
-                user.getPlayer().setDisplayName(arguments[0]);
-                sender.sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Your nickname has now been changed to " + ChatColor.GOLD + arguments[0]);
-            }
-        }
-        return true;
+    @Default
+    public static void onNickname(Player player, User user, String name) {
+        user.getNicknameManager().setNickname(name);
+        user.getPlayer().setDisplayName(name);
+        player.sendMessage(CommandSymbols.SUCCESS + "" + ChatColor.GRAY + "Your nickname has now been changed to " + name + ".");
     }
 }

@@ -27,12 +27,21 @@ public class UserListener implements Listener {
 			event.getPlayer().setDisplayName(user.getNicknameManager().getNickname());
 		}
 
+		event.getPlayer().sendMessage(new String[] {
+				"",
+				ChatColor.LIGHT_PURPLE + " " + ChatColor.BOLD + "WELCOME!",
+				"",
+		});
+
 		if (user.getPinManager().getPin() == null) {
-			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Welcome, please use the " + ChatColor.GOLD + "/pin create <string>" + ChatColor.GRAY + " command to create a pin and secure your account!");
-			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "DO NOT USE ANYTHING THAT YOU WOULD USE FOR YOUR OTHER ACCOUNT!");
+			event.getPlayer().sendMessage(new String[] {
+					" Please use the " + ChatColor.LIGHT_PURPLE + "/pin create <string>" + ChatColor.GRAY + " command to create a pin and secure your account!",
+					" Please do not use anything that you would for any other accounts."
+			});
 		} else {
-			user.getPlayer().sendMessage(ChatColor.GOLD + "Server " + ChatColor.DARK_GRAY + "> " + ChatColor.GRAY + "Please authenticate with the " + ChatColor.GOLD + "/pin authenticate <string> " + ChatColor.GRAY + " command");
+			event.getPlayer().sendMessage(" Please authenticate with the " + ChatColor.LIGHT_PURPLE + "/pin authenticate <string>" + ChatColor.GRAY + " command.");
 		}
+		event.getPlayer().sendMessage();
 	}
 
 	@EventHandler
